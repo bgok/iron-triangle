@@ -20,6 +20,5 @@ node_modules
 components
 .grunt
 
-js
 spec/dist
 .grunt
