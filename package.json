@@ -1,0 +1,41 @@
+{
+    "name": "iron-triangle",
+    "description": "A simple demonstration of the iron triangle of project management using the Cassowary constraint solving algorithm.",
+    "version": "0.0.1",
+    "homepage": "https://github.com/bgok/iron-triangle",
+    "author": {
+        "name": "Ken Heutmaker (bgok)",
+        "email": "bgok@me.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bgok/iron-triangle/tree/0.0.1"
+    },
+    "bugs": {
+        "url": "https://github.com/bgok/iron-triangle/issues"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/bgok/iron-triangle/blob/master/MIT-LICENSE.md"
+        }
+    ],
+    "engines": {
+        "node": ">= 0.10.0"
+    },
+    "devDependencies": {
+        "bower": "~0.9.2",
+        "grunt-bower-task": "~0.2.3",
+        "grunt-express": "~0.3.2",
+        "grunt-contrib-coffee": "~0.7.0",
+        "grunt-contrib-jasmine": "~0.4.2",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-webdriver-jasmine-runner": "~0.1.0"
+    },
+    "keywords": [
+        "gruntplugin",
+        "webdriver",
+        "jasmine"
+    ]
+}
+
