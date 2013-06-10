@@ -18,7 +18,6 @@ _SpecRunner.html
 npm-debug.log
 node_modules
 components
-lib
 .grunt
 
 js
