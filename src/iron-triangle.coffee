@@ -1,5 +1,5 @@
-c.debug = true
-c.trace = true
+#c.debug = true
+#c.trace = true
 
 controlList = []
 
@@ -11,19 +11,19 @@ solver.onsolved = =>
 
 
 cost = new c.Variable
-    name: 'cost'
+    name: 'Cost'
     value: 0
 solver.addConstraint new c.Inequality(cost, c.GEQ, -100)
 solver.addConstraint new c.Inequality(cost, c.LEQ, 100)
 
 quality = new c.Variable
-    name: 'quality'
+    name: 'Features'
     value: 0
 solver.addConstraint new c.Inequality(quality, c.GEQ, -100)
 solver.addConstraint new c.Inequality(quality, c.LEQ, 100)
 
 time = new c.Variable
-    name: 'time'
+    name: 'Time'
     value: 0
 solver.addConstraint new c.Inequality(time, c.GEQ, -100)
 solver.addConstraint new c.Inequality(time, c.LEQ, 100)
