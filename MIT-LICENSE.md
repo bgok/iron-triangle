@@ -1,4 +1,4 @@
-Copyright (c) 2013 Kenneth Heutmaker
+Copyright (c) 2013 Rally Software Development Corp.
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
