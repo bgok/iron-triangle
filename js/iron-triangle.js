@@ -2,6 +2,10 @@
   var balance, controlList, controls, cost, createSlider, formula, quality, solver, time,
     _this = this;
 
+  c.debug = true;
+
+  c.trace = true;
+
   controlList = [];
 
   solver = new c.SimplexSolver;
@@ -13,7 +17,7 @@
   };
 
   cost = new c.Variable({
-    name: 'Cost',
+    name: 'cost',
     value: 0
   });
 
@@ -22,7 +26,7 @@
   solver.addConstraint(new c.Inequality(cost, c.LEQ, 100));
 
   quality = new c.Variable({
-    name: 'Features',
+    name: 'quality',
     value: 0
   });
 
@@ -31,7 +35,7 @@
   solver.addConstraint(new c.Inequality(quality, c.LEQ, 100));
 
   time = new c.Variable({
-    name: 'Time',
+    name: 'time',
     value: 0
   });
 
