@@ -2,29 +2,44 @@
 #c.trace = true
 
 controlList = []
-varList = []
+ModelList = (solver) ->
+    this.solver = solver
+    this.list = []
+    return
+
+ModelList.prototype =
+    addVariable: (name, value, min, max) ->
+        variable = new c.Variable
+            name: name
+            value: value
+
+        this.list[name] =
+            variable: variable
+            min: min
+            max: max
+
+        this.solver.addConstraint new c.Inequality(variable, c.GEQ, min)
+        this.solver.addConstraint new c.Inequality(variable, c.LEQ, max)
+
+        return variable
+
+    getVariable: (name) ->
+        this.list[name].variable
+
+    getModel: (name) ->
+        this.list[name]
 
 solver = new c.SimplexSolver
-
 solver.onsolved = =>
     _.each controlList, (meta) ->
         meta.control.slider 'value', meta.variable.value
         meta.valueContainer.text meta.variable.value
 
-addVariable = (name, value, min, max) ->
-    varList[name] =
-        variable: new c.Variable
-            name: name
-            value: value
-        min: min
-        max: max
+varList = new ModelList(solver)
 
-addVariable 'Features', 0, 0, 100
-addVariable 'Cost', 0, -100, 100
-addVariable 'Time', 0, -100, 100
-
-solver.addConstraint new c.Inequality(time, c.GEQ, time.min)
-solver.addConstraint new c.Inequality(time, c.LEQ, time.max)
+feature = varList.addVariable 'Features', 0, 0, 100
+cost = varList.addVariable 'Cost', 0, -100, 100
+time = varList.addVariable 'Time', 0, -100, 100
 
 #solver.addConstraint (new c.Equation c.minus(feature, c.divide(time, 2))), 0, c.Strength.weak, 0
 
@@ -47,18 +62,17 @@ solver.endEdit()
 #$("<p>time: #{time.value}</p>").appendTo results
 
 
-controls = $ '#controls'
 createSlider = (model) ->
     sliderControl = $('<div class="control"/>').slider
         min: model.min
         max: model.max
         value: model.value
         start: (event, ui) =>
-            solver.addEditVar(model, c.Strength.high).beginEdit()
+            solver.addEditVar(model.variable, c.Strength.high).beginEdit()
         stop: (event, ui) =>
             solver.endEdit();
         slide: (event, ui) =>
-            solver.suggestValue(model, ui.value).resolve()
+            solver.suggestValue(model.variable, ui.value).resolve()
 
     valueContainer = $("<div class=value>#{model.value}</div>")
 
@@ -72,6 +86,7 @@ createSlider = (model) ->
         .append(valueContainer)
         .append(sliderControl)
 
-createSlider(cost).appendTo controls
-createSlider(feature).appendTo controls
-createSlider(time).appendTo controls
+controls = $ '#controls'
+createSlider(varList.getModel(cost.name)).appendTo controls
+createSlider(varList.getModel(feature.name)).appendTo controls
+createSlider(varList.getModel(time.name)).appendTo controls
