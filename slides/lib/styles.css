@@ -52,5 +52,5 @@ nav button { float: left; border: 0; width: 26px; height: 25px; text-indent: -99
 .slide hgroup { margin: 0 0 20px; }
 
 /* Center graphics and media content */
-.slide img, .slide video, .slide canvas, .slide figure, .slide object, .slide embed { margin:0 auto; }
+.slide img, .slide video, .slide canvas, .slide figure, .slide object, .slide embed, .slide iframe { margin:0 auto; }
 .slide .fullscreen { position: absolute; left:0; top:0; width:100%; z-index:1; }

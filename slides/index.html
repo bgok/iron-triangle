@@ -5,8 +5,10 @@
   
   <!--[if lt IE 9]>
   <script src="lib/html5shim.js"></script>
-  <![endif]-->  
-  
+  <![endif]-->
+
+  <link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css' />
+
   <!-- These are some core styles the slideshow app requires -->
   <link rel="stylesheet" href="lib/styles.css" />
   
@@ -81,7 +83,7 @@
 
         <ul>
             <li>Wikipedia: <a href="http://en.wikipedia.org/wiki/Constraint_programming">http://en.wikipedia.org/wiki/Constraint_programming</a></li>
-            <li>Cassoway Constraint Solving Toolkit: <a href="http://www.cs.washington.edu/research/constraints/cassowary/">http://www.cs.washington.edu/research/constraints/cassowary/</a> </li>
+            <li>Cassoway Constraint Solving Toolkit: <a href="http://www.cs.washington.edu/research/constraints/cassowary/">http://www.cs.washington.edu/research/constraints/cassowary/</a></li>
             <li>The demo is at: <a href="http://bgok.github.io/iron-triangle/">http://bgok.github.io/iron-triangle/</a></li>
             <li>These slides: <a href="http://bgok.github.io/iron-triangle/">http://bgok.github.io/iron-triangle/slides/</a></li>
         </ul>
@@ -95,25 +97,9 @@
   <script src="lib/jquery.jswipe-0.1.2.js"></script>
   <script src="lib/htmlSlides.js"></script>
   <script>
-    //Do our business when the DOM is ready for us
     $(function() {
-      
-      //You can trigger Javascript based on the slide number like this:
-      $('html').bind('newSlide', function(e, id) { 
-        switch(id) {
-          case 2:
-            console.log('This is the second slide.');;
-            break;
-          case 3:
-            console.log('Hello, third slide.');
-            break;
-        }
-      });
-
-      //One little option: hideToolbar (boolean; default = false)
       htmlSlides.init({ hideToolbar: true });
-      
     });
   </script>
-  </body>
+</body>
 </html>
