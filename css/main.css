@@ -126,22 +126,24 @@ section {
 }
 .slider-container {
     margin: auto;
+    padding: 20px 0;
 }
-.slider-label {
-    margin-right: 15px;
-    line-height: 54px;
-    width: 47px;
+.slider-container .label {
+    float: left;
+    padding-right: 20px;
+    width: 55px;
     text-align: right;
 }
-.slider-label, .slider-control {
-    float: left;
-    display: inline-block;
+.slider-container .value {
+    float: right;
+    padding-left: 20px;
+    width: 55px;
+    text-align: left;
 }
-.slider-control {
-    display: inline-block;
+.slider-container .control {
     width: 350px;
     height: 15px;
-    margin: 20px auto;
+    margin: 1px 75px;
 }
 
 

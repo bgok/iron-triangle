@@ -1,200 +1,109 @@
 (function() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  var balance, controlList, controls, cost, createSlider, formula, quality, solver, time,
+  var ModelList, balance, controlList, controls, cost, createSlider, feature, formula, solver, time, varList,
     _this = this;
-=======
-  var balance, controls, cost, formula, quality, results, solver, time;
->>>>>>> 2d2c1d3... adding a runable version
-=======
-  var balance, controlList, controls, cost, createSlider, formula, quality, solver, time,
-    _this = this;
->>>>>>> bfdc00a... Text changes.
 
   controlList = [];
 
+  ModelList = function(solver) {
+    this.solver = solver;
+    this.list = [];
+  };
+
+  ModelList.prototype = {
+    addVariable: function(name, value, min, max) {
+      var variable;
+      variable = new c.Variable({
+        name: name,
+        value: value
+      });
+      this.list[name] = {
+        variable: variable,
+        min: min,
+        max: max
+      };
+      this.solver.addConstraint(new c.Inequality(variable, c.GEQ, min, c.Strength.required, 0));
+      this.solver.addConstraint(new c.Inequality(variable, c.LEQ, max, c.Strength.required, 0));
+      this.solver.addConstraint(new c.StayConstraint(variable, c.Strength.medium, 0));
+      return variable;
+    },
+    getVariable: function(name) {
+      return this.list[name].variable;
+    },
+    getModel: function(name) {
+      return this.list[name];
+    }
+  };
+
   solver = new c.SimplexSolver;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  controlList = [];
-
-  solver = new c.SimplexSolver;
-
-=======
->>>>>>> bfdc00a... Text changes.
   solver.onsolved = function() {
     return _.each(controlList, function(meta) {
-      return meta.control.slider('value', meta.variable.value);
+      meta.control.slider('value', meta.variable.value);
+      return meta.valueContainer.text(meta.variable.value);
     });
   };
-<<<<<<< HEAD
 
-  cost = new c.Variable({
-    name: 'cost',
-    value: 0
-  });
+  varList = new ModelList(solver);
 
-  solver.addConstraint(new c.Inequality(cost, c.GEQ, -100));
+  cost = varList.addVariable('Cost', 0, -100, 100);
 
-  solver.addConstraint(new c.Inequality(cost, c.LEQ, 100));
+  time = varList.addVariable('Time', 0, -100, 100);
 
-  quality = new c.Variable({
-    name: 'quality',
-    value: 0
-  });
+  feature = varList.addVariable('Features', 0, 0, 100);
 
-  solver.addConstraint(new c.Inequality(quality, c.GEQ, -100));
-
-  solver.addConstraint(new c.Inequality(quality, c.LEQ, 100));
-
-  time = new c.Variable({
-    name: 'time',
-    value: 0
-  });
-
-  solver.addConstraint(new c.Inequality(time, c.GEQ, -100));
-
-  solver.addConstraint(new c.Inequality(time, c.LEQ, 100));
-
-  formula = c.plus(cost, c.plus(quality, time));
+  formula = c.minus(feature, c.plus(cost, time));
 
   balance = new c.Equation(formula, 0, c.Strength.required, 0);
 
   solver.addConstraint(balance);
 
-  solver.addEditVar(cost, c.Strength.strong).beginEdit();
+  solver.addEditVar(cost, c.Strength.strong);
 
-  solver.addEditVar(quality, c.Strength.strong).beginEdit();
-
-  solver.addEditVar(time, c.Strength.strong).beginEdit();
-
-  solver.suggestValue(cost, 0);
-
-  solver.suggestValue(quality, 0);
-
-  solver.suggestValue(time, 0);
-
-  solver.endEdit();
-
-  controls = $('#controls');
-
-  createSlider = function(model) {
-    var slider,
-      _this = this;
-    slider = $('<span class="slider-control"/>').slider({
-      min: -100,
-      max: 100,
-      value: model.value,
-      start: function(event, ui) {
-        return solver.addEditVar(model, c.Strength.high).beginEdit();
-      },
-      stop: function(event, ui) {
-        return solver.endEdit();
-      },
-      slide: function(event, ui) {
-        return solver.suggestValue(model, ui.value).resolve();
-      }
-    });
-    controlList.push({
-      variable: model,
-      control: slider
-    });
-    return $("<div class='slider-container clearfix'><span class='slider-label'>" + model.name + "</span></div>").append(slider);
-  };
-
-  createSlider(cost).appendTo(controls);
-
-  createSlider(quality).appendTo(controls);
-
-  createSlider(time).appendTo(controls);
-=======
-  solver = new c.SimplexSolver();
-=======
->>>>>>> bfdc00a... Text changes.
-
-  cost = new c.Variable({
-    name: 'Cost',
-    value: 0
-  });
-
-  solver.addConstraint(new c.Inequality(cost, c.GEQ, -100));
-
-  solver.addConstraint(new c.Inequality(cost, c.LEQ, 100));
-
-  quality = new c.Variable({
-    name: 'Features',
-    value: 0
-  });
-
-  solver.addConstraint(new c.Inequality(quality, c.GEQ, -100));
-
-  solver.addConstraint(new c.Inequality(quality, c.LEQ, 100));
-
-  time = new c.Variable({
-    name: 'Time',
-    value: 0
-  });
-
-  solver.addConstraint(new c.Inequality(time, c.GEQ, -100));
-
-  solver.addConstraint(new c.Inequality(time, c.LEQ, 100));
-
-  formula = c.plus(cost, c.plus(quality, time));
-
-  balance = new c.Equation(formula, 0, c.Strength.required, 0);
-
-  solver.addConstraint(balance);
-
-  solver.addEditVar(cost, c.Strength.strong).beginEdit();
-
-  solver.addEditVar(quality, c.Strength.strong).beginEdit();
+  solver.addEditVar(feature, c.Strength.strong);
 
   solver.addEditVar(time, c.Strength.strong).beginEdit();
 
   solver.suggestValue(cost, 0);
 
-  solver.suggestValue(quality, 0);
+  solver.suggestValue(feature, 0);
 
   solver.suggestValue(time, 0);
 
   solver.endEdit();
 
-  controls = $('#controls');
-
-<<<<<<< HEAD
-  $('<p>hello controls</p>').appendTo(controls);
->>>>>>> 2d2c1d3... adding a runable version
-=======
   createSlider = function(model) {
-    var slider,
+    var sliderControl, valueContainer,
       _this = this;
-    slider = $('<span class="slider-control"/>').slider({
-      min: -100,
-      max: 100,
+    sliderControl = $('<div class="control"/>').slider({
+      min: model.min,
+      max: model.max,
       value: model.value,
       start: function(event, ui) {
-        return solver.addEditVar(model, c.Strength.high).beginEdit();
+        return solver.addEditVar(model.variable, c.Strength.strong).beginEdit();
       },
       stop: function(event, ui) {
+        solver.suggestValue(model.variable, ui.value);
         return solver.endEdit();
       },
       slide: function(event, ui) {
-        return solver.suggestValue(model, ui.value).resolve();
+        return solver.suggestValue(model.variable, ui.value).resolve();
       }
     });
+    valueContainer = $("<div class=value>" + model.variable.value + "</div>");
     controlList.push({
-      variable: model,
-      control: slider
+      variable: model.variable,
+      control: sliderControl,
+      valueContainer: valueContainer
     });
-    return $("<div class='slider-container clearfix'><span class='slider-label'>" + model.name + "</span></div>").append(slider);
+    return $('<div class=slider-container clearfix></div>').append("<div class=label>" + model.variable.name + "</div>").append(valueContainer).append(sliderControl);
   };
 
-  createSlider(cost).appendTo(controls);
+  controls = $('#controls');
 
-  createSlider(quality).appendTo(controls);
+  createSlider(varList.getModel(cost.name)).appendTo(controls);
 
-  createSlider(time).appendTo(controls);
->>>>>>> bfdc00a... Text changes.
+  createSlider(varList.getModel(feature.name)).appendTo(controls);
+
+  createSlider(varList.getModel(time.name)).appendTo(controls);
 
 }).call(this);
