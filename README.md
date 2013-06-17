@@ -1,5 +1,3 @@
-BROKEN BRANCH!!!
-
 iron-triangle
 =============
 A simple demonstration of the [iron triangle](http://en.wikipedia.org/wiki/Project_management_triangle)
@@ -7,4 +5,4 @@ of project management using the [Cassowary constraint solving toolkit](http://ww
 
 To view this implementation, please visit http://bgok.github.io/iron-triangle/.
 
-Also see: https://github.com/srikumarks/FD.js.git
+Another possibly interesting contraint library implementation: https://github.com/srikumarks/FD.js.git
