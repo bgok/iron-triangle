@@ -3,29 +3,40 @@
 
 COST = 'Cost'
 TIME = 'Time'
-FEATURES = 'Features'
+STORY_POINTS = 'Story Points'
+TIME_PER_STORY_POINT = 'Time per Story Point'
 
 controlList = []
 
 # Set up the solver and attach a callback
-solver = new c.SimplexSolver
-solver.onsolved = =>
+solver = new FD.space()
+originalPropagate = solver.propagate
+
+solver.propagate = ->
+    originalPropagate.apply(solver)
     _.each(controlList, (meta) ->
         meta.slider.slider('value', meta.variable.value)
         meta.valueContainer.text(meta.variable.value)
     )
 
+solver.cloneWithoutPropagators = () ->
+    C = new FD.space(@)
+    C._propagators = []
+    return C
+
 # Set up the models which contain constrained variables
 models = new ModelList(solver)
-models.add COST, 0, -100, 100
-models.add TIME, 0, -100, 100
-models.add FEATURES, 0, 0, 100
+    .add(COST, 500, [0, 1000])
+    .add(TIME, 0, [0, 1000])
+    .add(STORY_POINTS, 100, [0, 100])
+    .add(TIME_PER_STORY_POINT, [5, 25])
 
 # Build the relationships between variables
-formula = c.minus(models.getVariable(FEATURES), c.plus(models.getVariable(COST), models.getVariable(TIME)))
-balance = new c.Equation formula, 0, c.Strength.required, 0
-solver.addConstraint balance
-solver.resolve()
+#formula = c.minus(models.getVariable(FEATURES), c.plus(models.getVariable(COST), models.getVariable(TIME)))
+#balance = new c.Equation formula, 0, c.Strength.required, 0
+
+solver.plus(COST, TIME, solver.times(STORY_POINTS, TIME_PER_STORY_POINT))
+solver.propagate()
 
 # Add a slider for each variable
 _.each(models.list, (model) ->

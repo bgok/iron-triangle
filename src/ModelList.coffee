@@ -4,26 +4,32 @@ ModelList = (solver) ->
     return @
 
 ModelList.prototype =
-    add: (name, value, min, max) ->
-        variable = new c.Variable
-            name: name
-            value: value
+    add: (name, value, range) ->
+        # Rearrange the parameters if the value isn't specified
+        if _.isArray(value)
+            range = value
+            value = undefined
 
-        @list.push(@list[name] =
-            variable: variable
-            min: min
-            max: max
-        )
+        if _.isUndefined(range)
+            @solver.decl(name)
+            @list.push(@list[name] =
+                name: name
+            )
+        else
+            @solver.decl(name, [range])
+            @list.push(@list[name] =
+                name: name
+                min: range[0]
+                max: range[1]
+            )
 
-        this.solver.addConstraint(new c.Inequality(variable, c.GEQ, min, c.Strength.required, 0))
-        this.solver.addConstraint(new c.Inequality(variable, c.LEQ, max, c.Strength.required, 0))
-        this.solver.addConstraint(new c.StayConstraint(variable, c.Strength.medium, 0))
+        @solver.eq(name, @solver.const(value)) if !_.isUndefined(value)
 
-        return variable
+        return @
 
-    getVariable: (name) ->
-        @get(name)?.variable
-
+#    getVariable: (name) ->
+#        @get(name)?.variable
+#
     get: (name) ->
         @list[name]
 

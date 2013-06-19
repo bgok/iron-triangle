@@ -131,7 +131,7 @@ section {
 .slider-container .label {
     float: left;
     padding-right: 20px;
-    width: 55px;
+    width: 100px;
     text-align: right;
 }
 .slider-container .value {
@@ -141,9 +141,9 @@ section {
     text-align: left;
 }
 .slider-container .control {
-    width: 350px;
+    width: 310px;
     height: 15px;
-    margin: 1px 75px;
+    margin: 1px 120px;
 }
 
 
