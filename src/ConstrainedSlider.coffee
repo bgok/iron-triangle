@@ -1,7 +1,12 @@
-ConstrainedSlider = (model, solver) ->
-    value = solver.solution()?[model.name]
+COST = 'Cost'
+TIME = 'Time'
+STORY_POINTS = 'Story Points'
+TIME_PER_STORY_POINT = 'Time per Story Point'
 
-    @slider = $('<div class="control"/>').slider
+ConstrainedSlider = (model, solver, initialValues) ->
+    value = initialValues?[model.name]
+
+    @slider = $("<div class='control' data-name='#{model.name}'/>").slider
         min: model.min
         max: model.max
         value: value
@@ -10,9 +15,11 @@ ConstrainedSlider = (model, solver) ->
 #        stop: (event, ui) =>
 #            solver.endEdit()
         slide: (event, ui) =>
-            S = solver.cloneWithoutPropagators()
-            S.eq(model.name, solver.const(ui.value)).propagate()
-#            S.done()
+            S = solver.clone()
+            S
+                .eq(model.name, S.const(ui.value))
+                .propagate()
+#                .done()
 
     @valueContainer = $("<div class=value>#{value}</div>")
 
