@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -15,10 +11,9 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/sunny/jquery-ui.css">
-        <script src="lib/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-        <!--[if lt IE 7]>
+        <!--[if lt IE 10]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
         <header>The Iron Triangle of Project Management</header>
@@ -28,30 +23,12 @@
         <section id="controls"></section>
         <section id="results"></section>
 
-        <footer>&copy; 2013, Rally Software Development Corp., <a href="https://raw.github.com/bgok/iron-triangle/master/MIT-LICENSE.md">MIT License</a></footer>
+        <footer>&copy; 2014, Rally Software Development Corp., <a href="https://raw.github.com/bgok/iron-triangle/master/MIT-LICENSE.md">MIT License</a></footer>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <script src="lib/lodash/lodash.compat.js"></script>
-        <!--<script src="lib/c.js"></script>-->
-        <script src="lib/cassoway/c.js"></script>
-        <script src="lib/cassoway/HashTable.js"></script>
-        <script src="lib/cassoway/HashSet.js"></script>
-        <script src="lib/cassoway/Error.js"></script>
-        <script src="lib/cassoway/SymbolicWeight.js"></script>
-        <script src="lib/cassoway/Strength.js"></script>
-        <script src="lib/cassoway/Variable.js"></script>
-        <script src="lib/cassoway/Point.js"></script>
-        <script src="lib/cassoway/Expression.js"></script>
-        <script src="lib/cassoway/Constraint.js"></script>
-        <script src="lib/cassoway/EditInfo.js"></script>
-        <script src="lib/cassoway/Tableau.js"></script>
-        <script src="lib/cassoway/SimplexSolver.js"></script>
-        <script src="lib/cassoway/Timer.js"></script>
-        <script src="lib/cassoway/parser/parser.js"></script>
-        <script src="lib/cassoway/parser/api.js"></script>
+        <script src="node_modules/cassowary/bin/c.js"></script>
 
-        <script src="js/ModelList.js"></script>
-        <script src="js/ConstrainedSlider.js"></script>
-        <script src="js/iron-triangle.js"></script>
+        <script src="js/iron-triangle.min.js"></script>
     </body>
 </html>
