@@ -40,7 +40,7 @@
         grunt.loadNpmTasks('grunt-contrib-jshint');
         grunt.loadNpmTasks('grunt-express');
 
-        grunt.registerTask('build', ['clean', 'jshint', 'uglify']);
+        grunt.registerTask('build', ['clean', 'jshint']);
         grunt.registerTask('default', ['express', 'express-keepalive']);
 
         grunt.registerTask('start', ['build', 'default']);

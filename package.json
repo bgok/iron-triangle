@@ -32,6 +32,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "cassowary": "0.0.2"
+    "cassowary": "0.0.2",
+    "angular": "^1.2.23"
   }
 }

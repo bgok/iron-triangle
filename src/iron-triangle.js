@@ -32,7 +32,5 @@ solver.resolve();
 
 _.each(models.list, function (model) {
     var control;
-    control = new ConstrainedSlider(model, solver);
     controlList.push(control);
-    return $('#controls').append(control.control);
 });
